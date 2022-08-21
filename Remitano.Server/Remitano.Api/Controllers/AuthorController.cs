@@ -21,6 +21,7 @@ namespace Remitano.Api.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [Route("GetAll")]
         public async Task<ActionResult<IEnumerable<Author>>> GetAllCustomers()
         {
