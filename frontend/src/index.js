@@ -8,6 +8,8 @@ import './index.css';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
+console.log(process.env.REACT_APP_DATA)
+console.log(process.env.NODE_ENV)
 
 root.render(
   <React.StrictMode>
