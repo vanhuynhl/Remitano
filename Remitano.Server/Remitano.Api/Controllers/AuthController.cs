@@ -30,15 +30,16 @@ namespace Remitano.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
-            var user = await _userManager.FindByNameAsync(model.UserName);
+            var user = await _userManager.FindByEmailAsync(model.Email);
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
                 var userRoles = await _userManager.GetRolesAsync(user);
 
                 var authClaims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new (ClaimTypes.NameIdentifier, user.Id),
+                    new (ClaimTypes.Name, user.UserName),
+                    new (JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 };
 
                 foreach (var userRole in userRoles)
@@ -61,7 +62,7 @@ namespace Remitano.Api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
-            var userExists = await _userManager.FindByNameAsync(model.Username);
+            var userExists = await _userManager.FindByEmailAsync(model.Email);
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new ResponseModel { Status = "Error", Message = "User already exists!" });
 
@@ -69,7 +70,7 @@ namespace Remitano.Api.Controllers
             {
                 Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = model.Username
+                UserName = model.Email
             };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)

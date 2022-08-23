@@ -5,16 +5,18 @@ import { store } from './app/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
+import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom";
+import history from "./Utils/customHistory";
 
 const container = document.getElementById('root');
 const root = createRoot(container);
-console.log(process.env.REACT_APP_DATA)
-console.log(process.env.NODE_ENV)
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+        <HistoryRouter history={history}>
+            <App />
+        </HistoryRouter>
     </Provider>
   </React.StrictMode>
 );

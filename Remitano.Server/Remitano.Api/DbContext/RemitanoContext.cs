@@ -12,7 +12,5 @@ namespace Remitano.Api.DbContext
         }
 
         public DbSet<Author> Author { get; set; }
-        public DbSet<Book> Book { get; set; }
-        public DbSet<UserEntity> User { get; set; }
     }
 }

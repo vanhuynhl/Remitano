@@ -1,45 +1,63 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Col, Row } from 'antd';
 import { HomeTwoTone } from '@ant-design/icons';
-import { Space, Typography, Input, Button } from 'antd';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectLoginData, Login } from '../../features/Login/LoginSlice'
+import { Space, Typography, Layout, Button } from 'antd';
+import  history from '../../Utils/customHistory';
+import LoginComponent from '../../features/Login/LoginComponent'
+import {GetUserInfo, selectEmail} from '../../features/User/UserSlice'
+import {useDispatch, useSelector} from "react-redux";
 
 const CustomHeader = () => {
-    const data = useSelector(selectLoginData)
+    const userEmail = useSelector(selectEmail)
+    const [email, setEmail] = useState(userEmail);
     const dispatch = useDispatch()
-    console.log('Data in Reducer')
-    console.log(data)
+
+    useEffect(() => {
+        setEmail(userEmail)
+        const token = localStorage.getItem('token')
+        const isErrorPage = window.location.href.includes('error')
+        if(token && !userEmail && !isErrorPage){
+            dispatch(GetUserInfo())
+        }
+
+    }, [dispatch, userEmail]);
+
     return (
-        <>
+        <Layout.Header style={{height: '72px'}}>
             <Row>
-                <Col span={8}>
+                <Col sm={8}>
                     <Space>
-                        <HomeTwoTone style={{fontSize:"40px", paddingTop:"9px"}}/>
+                        <HomeTwoTone
+                            style={{fontSize:"40px", paddingTop:"12px"}}
+                            onClick={() => history.replace('/')}
+                        />
                         <Typography>
-                            <h1 style={{color:"#D3D3D3", paddingTop:"9px"}}>Funny Movies</h1>
+                            <h1 style={{color:"#D3D3D3", paddingTop:"12px"}}>Funny Movies</h1>
                         </Typography>
                     </Space>
 
                 </Col>
-                <Col span={8} offset={8}>
-                    <Space>
-                        <Input placeholder="Your Email" />
-                        <Input.Password placeholder="Your password" />
-                        <Button
-                            type="primary"
-                            shape="round"
-                            onClick={() => dispatch(Login()) }
-                        >
-                            Login
-                        </Button>
-                        <Button type="dashed" shape="round" >
-                            Register
-                        </Button>
-                    </Space>
-                </Col>
+                {
+                    userEmail
+                    ?
+                        <Col sm={5} offset={11}>
+                            <Space>
+                                <h2 style={{color: '#D3D3D3'}}>Welcome {userEmail}</h2>
+                                <Button type="dashed"
+                                        danger
+                                        shape='round'>
+                                    Logout
+                                </Button>
+                            </Space>
+                        </Col>
+                    :   <Col sm={10} offset={5}>
+                            <Space>
+                                <LoginComponent />
+                            </Space>
+                        </Col>
+                }
             </Row>
-        </>
+        </Layout.Header>
     );
 };
 
