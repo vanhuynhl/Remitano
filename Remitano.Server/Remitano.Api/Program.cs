@@ -7,7 +7,6 @@ using Remitano.Api.DbContext;
 using Remitano.Api.Repository;
 using Remitano.Api.Repository.IRepository;
 
-var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -64,4 +63,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.MapGet("/", () => "Hello World");
+
 app.Run();
+
+public partial class Program { }

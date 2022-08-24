@@ -11,7 +11,6 @@ namespace Remitano.Api.DbContext
         {
         }
 
-        public DbSet<Author> Author { get; set; }
         public DbSet<SharedMovieEntity> SharedMovie { get; set; }
     }
 }
