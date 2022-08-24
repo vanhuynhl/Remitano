@@ -2,28 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, message, Space, Row, Col, Tooltip } from 'antd'
 import { InfoCircleTwoTone  } from '@ant-design/icons'
 import { getYoutubeInfoApi, sendYoutubeInfoApi } from './MovieApi'
-import {GetUserInfo, selectEmail} from "../User/UserSlice";
-import { useDispatch, useSelector } from "react-redux";
 
 const MoviePage = () => {
     const [form] = Form.useForm();
-    const userEmail = useSelector(selectEmail)
-    const [email, setEmail] = useState(userEmail);
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        setEmail(userEmail)
-        const token = localStorage.getItem('token')
-        if(!token){
-            window.location.href = '/'
-            return
-        }
-
-        if(!userEmail){
-            dispatch(GetUserInfo())
-        }
-
-    }, [dispatch, userEmail]);
 
     const onFinishFailed = (abc) => {
         message.error('Submit failed!');

@@ -16,7 +16,7 @@ namespace Remitano.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    // [Authorize]
+    [Authorize]
     public class MovieController : ControllerBase
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -31,12 +31,12 @@ namespace Remitano.Api.Controllers
         }
         
         [HttpGet("getAll")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAllMovies()
         {
-            var asdasd = 0;
-            return Ok("GOODDDDDDDDD");
-            // var movieList = await _movieRepository.GetAllWithUserAsync();
-            // return Ok(_mapper.Map<IList<SharedMovieModel>>(movieList));
+            var movieList = await _movieRepository.GetAllWithUserAsync();
+            movieList = movieList.OrderByDescending(x => x.CreatedDate);
+            return Ok(_mapper.Map<IList<SharedMovieModel>>(movieList));
         }
         
         [HttpPost("Share")]

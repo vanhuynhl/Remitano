@@ -6,8 +6,6 @@ import { getMovieList, selectMovieData } from '../Movie/MovieSlice'
 const MyComponent = () => {
     const dispatch = useDispatch()
     const movieList = useSelector(selectMovieData)
-    console.log(1111)
-    console.log(movieList)
     useEffect(() => {
         dispatch(getMovieList())
     }, [dispatch]);

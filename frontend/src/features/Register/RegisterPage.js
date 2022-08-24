@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button, Checkbox, Form, Input } from 'antd';
+import {Button, Checkbox, Form, Input, message} from 'antd';
 import { Register, selectRegisterData } from './RegisterSlice'
 import { useSelector, useDispatch } from 'react-redux';
+import history from '../../Utils/customHistory'
 
 const formItemLayout = {
     labelCol: {
@@ -30,11 +31,15 @@ const tailFormItemLayout = {
 
 const RegisterPage = () => {
     const [form] = Form.useForm();
-    const registerData = useSelector(selectRegisterData);
     const dispatch = useDispatch();
+
+    const onFinish = (values) => {
+        message.success('Create new account successfully!')
+    }
+
     return (
         <>
-            <Form {...formItemLayout} form={form}>
+            <Form {...formItemLayout} form={form} onFinish={onFinish}>
                 <Form.Item
                     name="email"
                     label="E-mail"
@@ -102,7 +107,11 @@ const RegisterPage = () => {
                     </Checkbox>
                 </Form.Item>
                 <Form.Item {...tailFormItemLayout}>
-                    <Button type="primary" htmlType="submit" onClick={(e) => dispatch(Register(form))}>
+                    <Button type="primary" htmlType="submit" onClick={(e) => {
+                        e.preventDefault()
+                        dispatch(Register(form))
+                        history.replace('/')
+                    }}>
                         Register
                     </Button>
                 </Form.Item>

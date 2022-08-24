@@ -62,9 +62,9 @@ namespace Remitano.Api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
-            var userExists = await _userManager.FindByEmailAsync(model.Email);
+             var userExists = await _userManager.FindByEmailAsync(model.Email);
             if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new ResponseModel { Status = "Error", Message = "User already exists!" });
+                return Ok(new ResponseModel { Status = "Error", Message = "User already exists!" }); 
 
             IdentityUser user = new()
             {
@@ -76,7 +76,7 @@ namespace Remitano.Api.Controllers
             if (!result.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError, new ResponseModel { Status = "Error", Message = "User creation failed! Please check user details and try again." });
 
-            return Ok(new ResponseModel { Status = "Success", Message = "User created successfully!" });
+            return Ok(new ResponseModel { IsSuccessful = true, Status = "Success", Message = "User created successfully!" });
         }
         
         [HttpPost("logout")]

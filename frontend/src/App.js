@@ -32,9 +32,7 @@ function MainLayout() {
             <Layout.Content style={{paddingTop: "14px"}}>
                 <Outlet />
             </Layout.Content>
-            <Layout.Footer>
-                FOOTER
-            </Layout.Footer>
+            <Layout.Footer />
         </Layout>
     );
 }

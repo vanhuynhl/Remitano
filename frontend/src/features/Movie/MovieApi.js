@@ -39,6 +39,12 @@ export const sendYoutubeInfoApi = async (data) => {
 }
 
 export const getMovieListApi = async () => {
-    let response = await http.get('movie/getall')
-    return response.data
+    try
+    {
+        let response = await http.get('movie/getall')
+        return response.data
+    } catch (e) {
+        return []
+    }
+
 }

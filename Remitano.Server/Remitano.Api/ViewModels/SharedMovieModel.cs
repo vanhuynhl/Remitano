@@ -8,5 +8,5 @@ public class SharedMovieModel
     public string VideoId { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
-    public string ShareBy { get; set; }
+    public string ShareBy { get; set; } = string.Empty;
 }

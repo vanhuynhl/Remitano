@@ -18,6 +18,7 @@ export const MovieRow = (row) => {
                         <Typography>
                             <Title>{row.data.title}</Title>
                             <Paragraph>
+                                <h5><Text type="success">Share by: {row.data.shareBy}</Text></h5>
                                 {row.data.description}
                             </Paragraph>
                         </Typography>

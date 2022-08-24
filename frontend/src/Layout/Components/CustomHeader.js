@@ -24,12 +24,8 @@ const CustomHeader = () => {
         setEmail(userEmail)
         const token = localStorage.getItem('token')
         const isErrorPage = window.location.href.includes('error')
-        if(!token){
-            window.location.href = '/'
-            return
-        }
 
-        if(!userEmail && !isErrorPage){
+        if(token && !userEmail && !isErrorPage){
             dispatch(GetUserInfo())
         }
 

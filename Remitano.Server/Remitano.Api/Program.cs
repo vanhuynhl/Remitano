@@ -14,7 +14,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddDbContext<RemitanoContext>(otp => otp.UseSqlServer(builder.Configuration.GetConnectionString("ConStr")));
 builder.Services
-    .AddIdentity<IdentityUser, IdentityRole>()
+    .AddIdentity<IdentityUser, IdentityRole>(
+        opt =>
+        {
+            opt.Password.RequireDigit = false;
+            opt.Password.RequiredLength = 1;
+            opt.Password.RequireLowercase = false;
+            opt.Password.RequireUppercase = false;
+            opt.Password.RequireNonAlphanumeric = false;
+        })
     .AddEntityFrameworkStores<RemitanoContext>()
     .AddDefaultTokenProviders();
 
