@@ -1,10 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MovieRow } from '../_featureComponent/MovieRow'
+import { useDispatch, useSelector } from "react-redux";
+import { getMovieList, selectMovieData } from '../Movie/MovieSlice'
 
 const MyComponent = () => {
+    const dispatch = useDispatch()
+    const movieList = useSelector(selectMovieData)
+    console.log(1111)
+    console.log(movieList)
+    useEffect(() => {
+        dispatch(getMovieList())
+    }, [dispatch]);
+    
     return (
         <>
-            <MovieRow />
+            {
+                movieList.length > 0
+                    ? movieList.map(
+                        (value, index) => {
+                            return <MovieRow key={index} data={value}/>
+                        }
+                    )
+                    : null
+            }
         </>
     );
 };

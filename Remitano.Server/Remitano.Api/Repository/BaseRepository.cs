@@ -8,8 +8,8 @@ namespace Remitano.Api.Repository
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
-        private readonly RemitanoContext _context;
-        private readonly DbSet<T> _entity;
+        protected readonly RemitanoContext _context;
+        protected readonly DbSet<T> _entity;
 
         public BaseRepository(RemitanoContext context)
         {

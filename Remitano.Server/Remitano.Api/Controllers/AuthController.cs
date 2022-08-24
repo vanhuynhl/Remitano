@@ -14,16 +14,16 @@ namespace Remitano.Api.Controllers
     public class AuthController : ControllerBase
     {
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IConfiguration _configuration;
 
         public AuthController(
             UserManager<IdentityUser> userManager,
-            RoleManager<IdentityRole> roleManager,
+            SignInManager<IdentityUser> signInManager,
             IConfiguration configuration)
         {
             _userManager = userManager;
-            _roleManager = roleManager;
+            _signInManager = signInManager;
             _configuration = configuration;
         }
 
@@ -77,6 +77,13 @@ namespace Remitano.Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new ResponseModel { Status = "Error", Message = "User creation failed! Please check user details and try again." });
 
             return Ok(new ResponseModel { Status = "Success", Message = "User created successfully!" });
+        }
+        
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return Ok();
         }
 
         private JwtSecurityToken GetToken(List<Claim> authClaims)

@@ -10,6 +10,7 @@ import Header from "./Layout/Components/CustomHeader";
 import ErrorPage from "./Layout/ErrorPage";
 import RegisterPage from "./features/Register/RegisterPage";
 import HomePage from './features/Home/HomePage'
+import MoviePage from './features/Movie/MoviePage'
 
 export default function BasicExample() {
     return (
@@ -17,8 +18,7 @@ export default function BasicExample() {
             <Route path="/" element={<MainLayout />}>
                 <Route index element={<HomePage />} />
                 <Route path="register" element={<RegisterPage />} />
-                <Route path="about" element={<About />} />
-                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="movie" element={<MoviePage />} />
                 <Route path="*" element={<ErrorPage />} />
             </Route>
         </Routes>
@@ -36,29 +36,5 @@ function MainLayout() {
                 FOOTER
             </Layout.Footer>
         </Layout>
-    );
-}
-
-function Home() {
-    return (
-        <div>
-            <h2>Home</h2>
-        </div>
-    );
-}
-
-function About() {
-    return (
-        <div>
-            <h2>About</h2>
-        </div>
-    );
-}
-
-function Dashboard() {
-    return (
-        <div>
-            <h2>Dashboard</h2>
-        </div>
     );
 }

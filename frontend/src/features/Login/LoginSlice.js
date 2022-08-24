@@ -11,7 +11,7 @@ export const Login = createAsyncThunk(
     'login',
     async (form, thunkAPI) => {
         try{
-            // await loginApi(form.getFieldValue('email'), form.getFieldValue('password'))
+            await loginApi(form.getFieldValue('email'), form.getFieldValue('password'))
             const data = await getUserApi()
             return data
         } catch (e) {
@@ -34,8 +34,6 @@ const loginSlice = createSlice({
             })
     }
 })
-
-export const { } = loginSlice.actions;
 
 export const selectLoginData = (state) => state.login;
 

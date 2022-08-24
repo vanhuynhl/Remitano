@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, createAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { getUserApi } from './UserApi.js';
 import { Login } from '../Login/LoginSlice.js'
 
@@ -21,9 +21,7 @@ export const GetUserInfo = createAsyncThunk(
 const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {
-
-    },
+    reducers: { },
     extraReducers: (builder) => {
         builder
             .addCase(Login.fulfilled, (state, action) => {
@@ -35,9 +33,6 @@ const userSlice = createSlice({
     }
 })
 
-export const { } = userSlice.actions;
-
-export const selectUserData = (state) => state.user;
 export const selectEmail = (state) => state.user.email;
 
 export default userSlice.reducer;

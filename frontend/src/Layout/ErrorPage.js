@@ -1,20 +1,27 @@
 import React from 'react';
-import { Col, Row } from 'antd';
+import { Result, Button } from 'antd';
 import { v4 as uuidv4 } from 'uuid';
+import history from '../Utils/customHistory'
 
 const ErrorPage = () => {
     return (
         <>
-            <Row>
-                <Col span={18} offset={3}>
-                    <h1>
-                        Something went wrong while performing your request. Please contact administrator.
-                    </h1>
-                    <h1>
-                        TraceID: {uuidv4()}
-                    </h1>
-                </Col>
-            </Row>
+            <Result
+                status="500"
+                title="500"
+                subTitle={`Sorry, something went wrong. TraceID ${uuidv4()}`}
+                extra={
+                    <Button
+                        type="primary"
+                        onClick={(e) => {
+                            e.preventDefault()
+                            history.replace('/')
+                        }
+                    }>
+                        Back Home
+                    </Button>
+                }
+            />
         </>
 
     );

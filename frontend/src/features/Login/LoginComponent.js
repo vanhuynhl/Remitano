@@ -53,7 +53,7 @@ const LoginComponent = () => {
                                 }
 
                                 dispatch(Login(form))
-                                history.replace('/dashboard')
+                                history.replace('/')
                             }}
                         >
                             Log in
