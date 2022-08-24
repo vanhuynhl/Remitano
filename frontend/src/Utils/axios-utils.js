@@ -3,7 +3,6 @@ import { API_URL } from "./Configuration";
 import  history from '../Utils/customHistory'
 
 const FetchClient = () => {
-    // let navigate = useNavigate();
     const defaultOptions = {
         baseURL: `${API_URL}/api/`,
         headers: {
