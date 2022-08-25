@@ -12,7 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<RemitanoContext>(otp => otp.UseSqlServer(builder.Configuration.GetConnectionString("ConStr")));
+
+// We use sql server in memory for quick deployment
+// builder.Services.AddDbContext<RemitanoContext>(otp => otp.UseSqlServer(builder.Configuration.GetConnectionString("ConStr")));
+builder.Services.AddDbContext<RemitanoContext>(opt => opt.UseInMemoryDatabase(databaseName: "remitano"));
+
 builder.Services
     .AddIdentity<IdentityUser, IdentityRole>(
         opt =>
